@@ -42,12 +42,12 @@ public class ResponseBuilder {
 
     private static JSONObject createRowAnswer(DataPojo pojo, String gumcid) throws SQLException, JSONException {
         JSONObject rowResult = new JSONObject();
-        if (DBControll.getInstance().getResultNumber(pojo.getCode(), pojo.numberKey(), gumcid) > 0) {
+        if (DBController.getInstance().getResultNumber(pojo.getCode(), pojo.numberKey(), gumcid) > 0) {
             rowResult.put("id", pojo.getId());
             rowResult.put("result", 1);
         } else {
-            if (DBControll.getInstance().getResultErrNumber(pojo.getCode(), gumcid) > 0) { //место пропажи инцидента
-                Pair pair = DBControll.getInstance().getResultEventNameAndDesctiprion(pojo.getCode(), gumcid);
+            if (DBController.getInstance().getResultErrNumber(pojo.getCode(), gumcid) > 0) { //место пропажи инцидента
+                Pair pair = DBController.getInstance().getResultEventNameAndDesctiprion(pojo.getCode(), gumcid);
                 rowResult.put("id", pojo.getId());
                 rowResult.put("result", -1);
                 rowResult.put("event_name", pair.getEvent_name());

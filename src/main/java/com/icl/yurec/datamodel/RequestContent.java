@@ -15,7 +15,6 @@ public class RequestContent {
     @JsonProperty("arr")
     private List<DataPojo> list;
 
-
     public List<DataPojo> getList() {
         return list;
     }

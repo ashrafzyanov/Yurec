@@ -1,30 +1,27 @@
 package com.icl.yurec.util;
 
-/**
- * Created by anton.petrov on 24.11.2017.
- */
 public class Pair {
-    private String event_name;
+    private String eventName;
     private String description;
 
-    public Pair(String event_name, String description) {
-        this.event_name = event_name;
+    public Pair(String eventName, String description) {
+        this.eventName = eventName;
         this.description = description;
     }
 
     public Pair() {
     }
 
-    public String getEvent_name() {
-        return event_name;
+    public String getEventName() {
+        return eventName;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setEvent_name(String event_name) {
-        this.event_name = event_name;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     public void setDescription(String description) {

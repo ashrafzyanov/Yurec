@@ -4,11 +4,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.List;
 
-/**
- * Created by anton.petrov on 21.11.2017.
- */
-
 public class RequestContent {
+
     @JsonProperty("gumcid")
     private String gumcid;
 
@@ -30,4 +27,5 @@ public class RequestContent {
     public void setGumcid(String gumcid) {
         this.gumcid = gumcid;
     }
+
 }

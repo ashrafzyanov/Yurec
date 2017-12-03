@@ -16,7 +16,6 @@ public class PropertiesDictionary implements Dictionary {
     private final Map<String, String> dictionary = new HashMap<>();
 
     public PropertiesDictionary(String name) {
-//        InputStream input = PropertiesDictionary.class.getResourceAsStream(name);
         InputStream input = PropertiesDictionary.class.getResourceAsStream(String.format("/%s",name));
         Properties properties = new Properties();
         try {

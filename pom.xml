@@ -2,27 +2,23 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>vbp</groupId>
-  <artifactId>test</artifactId>
+  <artifactId>vbp_service</artifactId>
   <packaging>war</packaging>
-  <version>0.0.2</version>
-  <name>test Maven Webapp</name>
+  <version>0.0.3</version>
 
   <dependencies>
-
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-bundle</artifactId>
       <version>1.18.3</version>
     </dependency>
-
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-json</artifactId>
       <version>1.19.3</version>
     </dependency>
-
   </dependencies>
   <build>
-    <finalName>test</finalName>
+    <finalName>vbp_service</finalName>
   </build>
 </project>

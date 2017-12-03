@@ -11,15 +11,12 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by Rined on 03.12.2017.
- */
 public class PropertiesDictionary implements Dictionary {
     private static final Logger LOG = Logger.getLogger(PropertiesDictionary.class.getName());
     private final Map<String, String> dictionary = new HashMap<>();
 
     public PropertiesDictionary(String name) {
-        InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+        InputStream input = PropertiesDictionary.class.getResourceAsStream(name);
         Properties properties = new Properties();
         try {
             properties.load(input);
@@ -39,8 +36,4 @@ public class PropertiesDictionary implements Dictionary {
         return dictionary.get(name);
     }
 
-    @Override
-    public Map<String, String> getDictionary() {
-        return dictionary;
-    }
 }

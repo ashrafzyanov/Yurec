@@ -27,7 +27,7 @@ public class DBController {
             "event_number in('103','104','203','303','403','503','603') AND " +
             "message_uuid=?";
 
-    private static final String expressionResultErrEventNameAndDescription = "SELECT event_name, description from eventsjournal " +
+    private static final String expressionResultErrEventNameAndDescription = "SELECT event_name, message, description from eventsjournal " +
             "WHERE category_code='PROC' AND " +
             "component_code=? AND " +
             "event_number in('103','104','203','303','403','503','603') AND " +
@@ -95,7 +95,7 @@ public class DBController {
             stmtResultErrEventNameAndDescription.setString(2, gumcid);
             rs = stmtResultErrEventNameAndDescription.executeQuery();
             rs.next();
-            return new Pair(rs.getString(1), rs.getString(2));
+            return new Pair(rs.getString(1), ((rs.getString(2) != null && rs.getString(2).length() != 0) ? rs.getString(2) : rs.getString(3)));
         } finally {
             closeResources(rs);
             closeResources(stmtResultErrEventNameAndDescription);

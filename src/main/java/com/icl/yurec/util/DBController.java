@@ -1,5 +1,8 @@
 package com.icl.yurec.util;
 
+import com.icl.yurec.dictionary.Dictionary;
+import com.icl.yurec.dictionary.impl.PropertiesDictionary;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -7,10 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 public class DBController {
 
@@ -34,16 +33,7 @@ public class DBController {
             "event_number in('103','104','203','303','403','503','603') AND " +
             "message_uuid=?";
 
-    private static final Map<String, String> CODE_MAP = new HashMap<String, String>() {{
-        put("arcsightadapter_submitter", "302");
-        put("routingadapter_routing", "102");
-        put("hpucmdbqueue", "100");
-        put("hpucmdbadapter_reciver", "202");
-        put("hpucmdbadapter_submitter", "102");
-        put("hpsmqueue", "100");
-        put("hpsmadapter_reciver", "102");
-        put("hpsmadapter_submitter", "302");
-    }};
+    private static final Dictionary CODE_MAP = new PropertiesDictionary("dictionary.properties");
 
     private DataSource dataSource;
 
@@ -56,7 +46,8 @@ public class DBController {
         try {
             cxt = new InitialContext();
             dataSource = (DataSource) cxt.lookup("java:/comp/env/jdbc/db");
-        } catch (NamingException e) {}
+        } catch (NamingException e) {
+        }
     }
 
     public int getResultNumber(String code, String numberKey, String gumcid) throws SQLException {
@@ -64,7 +55,7 @@ public class DBController {
         PreparedStatement stmtResultNumber = connection.prepareStatement(expressionResultNumber);
         ResultSet rs = null;
         try {
-            String eventNumber = CODE_MAP.get(numberKey);
+            String eventNumber = CODE_MAP.getCode(numberKey);
             stmtResultNumber.setString(1, code);
             stmtResultNumber.setString(2, eventNumber);
             stmtResultNumber.setString(3, gumcid);
@@ -95,7 +86,7 @@ public class DBController {
         }
     }
 
-    public Pair getResultEventNameAndDesctiprion(String code, String gumcid) throws SQLException {
+    public Pair getResultEventNameAndDescription(String code, String gumcid) throws SQLException {
         ResultSet rs = null;
         Connection connection = dataSource.getConnection();
         PreparedStatement stmtResultErrEventNameAndDescription = connection.prepareStatement(expressionResultErrEventNameAndDescription);
@@ -117,7 +108,8 @@ public class DBController {
             if (closeable != null) {
                 closeable.close();
             }
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+        }
     }
 
 }

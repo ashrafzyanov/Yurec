@@ -13,7 +13,7 @@ public class ServiceImpl implements Service {
 
     @Override
     public List<Answer> getComponentInfo(List<DataPojo> list, String gumcid) throws Exception {
-        List<Answer> result = new ArrayList<Answer>();
+        List<Answer> result = new ArrayList<>();
         for(DataPojo pojo : list) {
             if (checkNumber(pojo.getCode(), pojo.numberKey(), gumcid)) {
                 result.add(new Answer(pojo.getId(), 1));
@@ -38,7 +38,7 @@ public class ServiceImpl implements Service {
     }
 
     private Pair getPair(final String code, final String gumcid) throws Exception {
-        return DBController.getInstance().getResultEventNameAndDesctiprion(code, gumcid);
+        return DBController.getInstance().getResultEventNameAndDescription(code, gumcid);
     }
 
 }

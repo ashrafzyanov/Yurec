@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+           xmlns:cxf="http://cxf.apache.org/blueprint/core"
+           xsi:schemaLocation="
+        http://www.osgi.org/xmlns/blueprint/v1.0.0
+        http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+        http://cxf.apache.org/blueprint/jaxrs
+        http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+        http://cxf.apache.org/blueprint/core
+        http://cxf.apache.org/schemas/blueprint/core.xsd">
+
+    <!-- RS -->
+    <cxf:bus id="bus">
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+
+    <jaxrs:server address="/api" id="bpm">
+        <jaxrs:serviceBeans>
+            <ref component-id="wsMain"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+    <!-- END RS -->
+
+
+    <bean id="wsMain" class="com.icl.yurec.WSMain">
+        <property name="service" ref="service"/>
+    </bean>
+
+    <bean id="service" class="com.icl.yurec.service.impl.ServiceImpl">
+        <property name="dbController" ref="dbController"/>
+    </bean>
+
+    <bean id="dbController" class="com.icl.yurec.util.DBController">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- Data Source -->
+    <reference id="dataSource" interface="javax.sql.DataSource"/>
+</blueprint>

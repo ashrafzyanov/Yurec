@@ -13,14 +13,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Path("/")
+@Path("/bpm")
 public class WSMain {
     private static final Logger LOG = Logger.getLogger(WSMain.class.getName());
 
-    private Service service = new ServiceImpl();
+    private Service service;
 
     @POST
-    @Path("/")
+    @Path("/getComponentInfo")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response jsonFromString(RequestContent requestContent) {
@@ -31,6 +31,10 @@ public class WSMain {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             return Response.serverError().entity(new ServerAnswer(false, e.getMessage())).build();
         }
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
 }

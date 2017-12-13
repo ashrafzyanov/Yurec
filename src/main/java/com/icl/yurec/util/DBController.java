@@ -13,8 +13,6 @@ import java.sql.SQLException;
 
 public class DBController {
 
-    private static DBController ourInstance = new DBController();
-
     private static final String expressionResultNumber = "SELECT COUNT(*) FROM eventsjournal " +
             "WHERE category_code='PROC' AND " +
             "component_code=? AND " +
@@ -36,19 +34,6 @@ public class DBController {
     private static final Dictionary CODE_MAP = new PropertiesDictionary("dictionary.properties");
 
     private DataSource dataSource;
-
-    public static DBController getInstance() {
-        return ourInstance;
-    }
-
-    private DBController() {
-        InitialContext cxt = null;
-        try {
-            cxt = new InitialContext();
-            dataSource = (DataSource) cxt.lookup("java:/comp/env/jdbc/db");
-        } catch (NamingException e) {
-        }
-    }
 
     public int getResultNumber(String code, String numberKey, String gumcid) throws SQLException {
         Connection connection = dataSource.getConnection();
@@ -101,6 +86,10 @@ public class DBController {
             closeResources(stmtResultErrEventNameAndDescription);
             closeResources(connection);
         }
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     private static void closeResources(final AutoCloseable closeable) {

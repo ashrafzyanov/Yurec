@@ -1,15 +1,14 @@
 package com.icl.yurec.datamodel;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
+import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 
 public class RequestContent {
 
-    @JsonProperty("gumcid")
+    @XmlElement(name = "gumcid")
     private String gumcid;
 
-    @JsonProperty("arr")
+    @XmlElement(name = "arr")
     private List<DataPojo> list;
 
     public List<DataPojo> getList() {

@@ -11,6 +11,8 @@ import java.util.List;
 
 public class ServiceImpl implements Service {
 
+    private DBController dbController;
+
     @Override
     public List<Answer> getComponentInfo(List<DataPojo> list, String gumcid) throws Exception {
         List<Answer> result = new ArrayList<>();
@@ -30,15 +32,18 @@ public class ServiceImpl implements Service {
     }
 
     private boolean checkNumber(final String code, final String numberKey, final String gumcid) throws Exception {
-        return DBController.getInstance().getResultNumber(code, numberKey, gumcid) > 0;
+        return dbController.getResultNumber(code, numberKey, gumcid) > 0;
     }
 
     private boolean checkErrorNumber(final String code, final String gumcid) throws Exception {
-        return DBController.getInstance().getResultErrNumber(code, gumcid) > 0;
+        return dbController.getResultErrNumber(code, gumcid) > 0;
     }
 
     private Pair getPair(final String code, final String gumcid) throws Exception {
-        return DBController.getInstance().getResultEventNameAndDescription(code, gumcid);
+        return dbController.getResultEventNameAndDescription(code, gumcid);
     }
 
+    public void setDbController(DBController dbController) {
+        this.dbController = dbController;
+    }
 }
